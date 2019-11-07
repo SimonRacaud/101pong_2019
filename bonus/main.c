@@ -19,6 +19,8 @@ int main(void)
         while (sfRenderWindow_pollEvent(w->window, &event)) {
             if (event.type == sfEvtClosed)
                 sfRenderWindow_close(w->window);
+            else if (event.type == sfEvtMouseMoved)
+                move_paddle(event.mouseMove.x, &w->posPaddle, w->paddle);
         }
         display(w);
     }

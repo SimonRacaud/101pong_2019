@@ -49,6 +49,8 @@ void create_el_window(window_t *w)
     set_balle_vel(&(w->balle), 0, INIT_SPEED, 0);
     sfRectangleShape_move(w->balle.rec, (w->balle.pos));
     create_blocks(w);
+    w->score = 0;
+    sfRenderWindow_setMouseCursorVisible(w->window, sfFalse);
 }
 
 window_t *create_window(void)
@@ -84,7 +86,9 @@ void destroy_window(window_t *w)
     sfText_destroy(w->txt_score);
     sfRectangleShape_destroy(w->paddle);
     sfRectangleShape_destroy(w->balle.rec);
-    for (int i = 0; i < 112; i++)
-        sfRectangleShape_destroy(w->block[i].block);
+    for (int i = 0; i < 112; i++) {
+        if (&w->block[i].block != NULL)
+            sfRectangleShape_destroy(w->block[i].block);
+    }
     free(w->block);
 }

@@ -20,7 +20,7 @@ CFLAGS	+= -Wall -Wextra -I./include
 
 all:	$(NAME)
 
-$(NAME):	$(LIB) $(OBJ)
+$(NAME):	LIB $(OBJ)
 	gcc -o $(NAME) $(OBJ) -L./lib -lmy -l csfml-graphics
 
 LIB:

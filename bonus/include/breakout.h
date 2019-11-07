@@ -28,7 +28,7 @@
 #define PADDLE_HEIGHT 16
 #define SPACE_PADDLE_Y 10
 #define BALLE_SIZE 8
-#define INIT_SPEED 5
+#define INIT_SPEED 8
 
 #define INIT_BALLE_PX W_WIDTH / 2 - BALLE_SIZE / 2
 #define INIT_BALLE_PY W_HEIGHT / 3
@@ -73,5 +73,9 @@ int display(window_t *w);
 void move_balle(balle_t *balle, sfVector2f *posPaddle, int is_hit_block);
 void set_balle_pos(balle_t *balle, double x, double y, double z);
 void set_balle_vel(balle_t *balle, double vx, double vy, double vz);
+
+int eval_impact_block(window_t *w);
+
+void move_paddle(int x, sfVector2f *posPadlle, sfRectangleShape *paddle);
 
 #endif

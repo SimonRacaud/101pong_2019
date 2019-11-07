@@ -6,6 +6,7 @@
 */
 
 #include "breakout.h"
+#include "my.h"
 #include <math.h>
 
 void set_balle_pos(balle_t *balle, double x, double y, double z)
@@ -29,34 +30,38 @@ static void bounce(balle_t *bl, char axis, double coef)
     } else if (axis == 'Y') {
         set_balle_vel(bl, -(bl->vx), bl->vy, 0);
     } else {
+        if (coef > 6.5)
+            coef = 6;
+        if (coef < -6.5)
+            coef = -6.5;
+        if (bl->vx > 15)
+            bl->vx -= 2;
+        if (bl->vx < -15)
+            bl->vx += 2;
         set_balle_vel(bl, bl->vx + coef, -(bl->vy), 0);
     }
 }
 
-void move_balle(balle_t *balle, sfVector2f *posPaddle, int is_hit_block)
+void move_balle(balle_t *balle, sfVector2f *posPdle, int is_hit_block)
 {
     double newPos[3] = {balle->pos.x, balle->pos.y, balle->z};
+    double coef_bounce;
 
-    // evalhit : change velocity
     if (balle->pos.y <= 0 || is_hit_block) {
-        printf("Hit block or TOP WALL\n");
         bounce(balle, 'X', 0);
     } else if (balle->pos.y >= W_HEIGHT) {
-        printf("Hit DOWN WALL\n");
-        // FIN DU JEU !!!
-        bounce(balle, 'X', 0); // DEBUG
+        my_putstr("\n\n\n\n\tGAME OVER!!!\n\n\n\n");
+        exit(0);
     }
-    if (balle->pos.x <= 0 || balle->pos.x >= W_WIDTH) {
-        printf("Hit LEFT or RIGHT WALL\n");
+    if (balle->pos.x <= 0 || balle->pos.x >= W_WIDTH)
         bounce(balle, 'Y', 0);
-    }
     if (balle->pos.y >= W_HEIGHT - PADDLE_HEIGHT - SPACE_PADDLE_Y) {
-        if (balle->pos.x >= posPaddle->x && balle->pos.x <= posPaddle->x + PADDLE_WIDTH) {
-            printf("Hit PADDLE WALL\n");
-            bounce(balle, 'X', 1);
+        if (balle->pos.x >= posPdle->x &&
+        balle->pos.x <= posPdle->x + PADDLE_WIDTH) {
+            coef_bounce = -(posPdle->x + PADDLE_WIDTH / 2 - balle->pos.x) / 8;
+            bounce(balle, '.', coef_bounce);
         }
     }
-    // change pos
     set_balle_pos(balle, newPos[0] + balle->vx, newPos[1] + balle->vy, 0);
     sfRectangleShape_setPosition(balle->rec, balle->pos);
 }

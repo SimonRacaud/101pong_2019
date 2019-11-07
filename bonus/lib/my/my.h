@@ -46,4 +46,6 @@ int my_getnbr_base(char const *str, char const *base);
 char *my_putnbr_base_s(int nbr, char const *base);
 void my_putstr_error(char *str);
 
+char *my_putnbr_base_str(int nbr, char const *base);
+
 #endif /* MY_H_ */
