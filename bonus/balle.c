@@ -42,17 +42,15 @@ static void bounce(balle_t *bl, char axis, double coef)
     }
 }
 
-void move_balle(balle_t *balle, sfVector2f *posPdle, int is_hit_block)
+int move_balle(balle_t *balle, sfVector2f *posPdle, int is_hit_block)
 {
     double newPos[3] = {balle->pos.x, balle->pos.y, balle->z};
     double coef_bounce;
 
     if (balle->pos.y <= 0 || is_hit_block) {
         bounce(balle, 'X', 0);
-    } else if (balle->pos.y >= W_HEIGHT) {
-        my_putstr("\n\n\n\n\tGAME OVER!!!\n\n\n\n");
-        exit(0);
-    }
+    } else if (balle->pos.y >= W_HEIGHT)
+        return (1);
     if (balle->pos.x <= 0 || balle->pos.x >= W_WIDTH)
         bounce(balle, 'Y', 0);
     if (balle->pos.y >= W_HEIGHT - PADDLE_HEIGHT - SPACE_PADDLE_Y) {
@@ -64,4 +62,5 @@ void move_balle(balle_t *balle, sfVector2f *posPdle, int is_hit_block)
     }
     set_balle_pos(balle, newPos[0] + balle->vx, newPos[1] + balle->vy, 0);
     sfRectangleShape_setPosition(balle->rec, balle->pos);
+    return 0;
 }

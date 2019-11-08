@@ -10,7 +10,8 @@ SRC	=	main.c			\
 		balle.c			\
 		block.c			\
 		paddle.c		\
-		display_window.c
+		display_window.c	\
+		menu_window.c
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -21,7 +22,7 @@ CFLAGS	+= -Wall -Wextra -I./include
 all:	$(NAME)
 
 $(NAME):	LIB $(OBJ)
-	gcc -o $(NAME) $(OBJ) -L./lib -lmy -l csfml-graphics
+	gcc -o $(NAME) $(OBJ) -L./lib -lmy -l csfml-graphics -l csfml-audio
 
 LIB:
 	make -C ./lib/my

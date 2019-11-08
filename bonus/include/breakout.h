@@ -10,7 +10,9 @@
 
 #include <stdlib.h>
 #include <SFML/Graphics.h>
+#include <SFML/Audio.h>
 
+#define PATH_MUSIC "maintheme.ogg"
 #define PATH_BG_IMG "wp1.jpg"
 #define PATH_FONT "Pixeled.ttf"
 #define W_HEIGHT 900
@@ -70,12 +72,16 @@ void create_el_window(window_t *w);
 void destroy_window(window_t *w);
 int display(window_t *w);
 
-void move_balle(balle_t *balle, sfVector2f *posPaddle, int is_hit_block);
+int move_balle(balle_t *balle, sfVector2f *posPaddle, int is_hit_block);
 void set_balle_pos(balle_t *balle, double x, double y, double z);
 void set_balle_vel(balle_t *balle, double vx, double vy, double vz);
 
 int eval_impact_block(window_t *w);
 
 void move_paddle(int x, sfVector2f *posPadlle, sfRectangleShape *paddle);
+
+window_t *create_window_menu(void);
+void display_menu(window_t *w);
+void destroy_window_menu(window_t *w);
 
 #endif
