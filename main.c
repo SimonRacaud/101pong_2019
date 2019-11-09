@@ -13,7 +13,8 @@ static void check_time_shift(char *tc)
 {
     unsigned int *len = len_nbr(tc);
 
-    if (len[0] == 0 || tc[0] == '-' || len[2] != 0) {
+    if (len[0] == 0 || tc[0] == '-' || len[2] != 0 ||
+    tc[my_strlen(tc) - 1] == '.') {
         my_putstr_error(ERR_ARG);
         free(len);
         exit(84);
