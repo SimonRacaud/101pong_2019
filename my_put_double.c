@@ -20,20 +20,32 @@ int nb_decimal)
         my_putchar('0');
 }
 
-void my_put_double(double nb, int nb_decimal)
+static double calc_decimal(double nb, int nb_decimal)
 {
     double integer = floor(nb);
     double decimal;
-    int decimal_len = 0;
 
     if (nb < 0)
         integer = ceil(nb);
     decimal = round( (nb - integer) * pow(10, nb_decimal) );
     if (decimal < 0)
         decimal = -decimal;
+    if (decimal == 100)
+        decimal = -1;
+    return decimal;
+}
+
+void my_put_double(double nb, int nb_decimal)
+{
+    double decimal = calc_decimal(nb, nb_decimal);
+    int decimal_len = 0;
+
     if (nb < 0 && nb > -1)
         my_putchar('-');
-    my_put_nbr((int)nb);
+    if (decimal == -1)
+        my_put_nbr(round(nb));
+    else
+        my_put_nbr(nb);
     my_putchar('.');
     if (decimal < 1) {
         decimal_len = 0;
@@ -41,5 +53,7 @@ void my_put_double(double nb, int nb_decimal)
         while (decimal / my_compute_power_rec(10, decimal_len) >= 1)
             decimal_len++;
     }
+    if (decimal == -1)
+        decimal = 0;
     display_decimal_digits(decimal, &decimal_len, nb_decimal);
 }
