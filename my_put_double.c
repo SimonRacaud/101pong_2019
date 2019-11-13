@@ -9,15 +9,27 @@
 
 static void round_nbr(double *nbr)
 {
-    if ((int)*nbr % 10 >= 5)
-        *nbr += 10;
-    *nbr /= 10;
+    if ((int)(*nbr * 10) % 10 >= 5)
+        *nbr += 1;
+}
+
+static void display_decimal_digits(double decimal, int *decimal_len,
+int nb_decimal)
+{
+    if (decimal < 10 && decimal != 0) {
+        my_putchar('0');
+        (*decimal_len)++;
+    }
+    if (decimal != 0)
+        my_put_nbr(decimal);
+    for (int i = (nb_decimal - *decimal_len); i > 0; i--)
+        my_putchar('0');
 }
 
 void my_put_double(double nb, int nb_decimal)
 {
     int integer = nb;
-    double decimal = (float)(nb - (float)integer) * POW(10, nb_decimal + 1);
+    double decimal = (float)(nb - (float)integer) * POW(10, nb_decimal);
     int decimal_len = 0;
 
     if (decimal < 0)
@@ -31,8 +43,5 @@ void my_put_double(double nb, int nb_decimal)
             decimal_len++;
     }
     round_nbr(&decimal);
-    if (decimal != 0)
-        my_put_nbr(decimal);
-    for (int i = (nb_decimal - decimal_len); i > 0; i--)
-        my_putchar('0');
+    display_decimal_digits(decimal, &decimal_len, nb_decimal);
 }
