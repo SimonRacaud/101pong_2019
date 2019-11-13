@@ -77,6 +77,8 @@ double extract_arg(char *nbr)
     if (len[1] != 0)
         alpha = my_getnbr(nbr);
     beta = (double)my_getnbr(dot) / my_compute_power_rec(10, len[2]);
+    if (alpha < 0)
+        beta = -beta;
     free(len);
     return (alpha + beta);
 }
