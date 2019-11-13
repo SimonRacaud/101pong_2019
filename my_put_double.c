@@ -7,12 +7,6 @@
 
 #include "pong.h"
 
-static void round_nbr(double *nbr)
-{
-    if ((int)(*nbr * 10) % 10 >= 5)
-        *nbr += 1;
-}
-
 static void display_decimal_digits(double decimal, int *decimal_len,
 int nb_decimal)
 {
@@ -28,14 +22,17 @@ int nb_decimal)
 
 void my_put_double(double nb, int nb_decimal)
 {
-    double integer = ceil(nb);
-    double decimal = (float)(nb - (float)integer) * POW(10, nb_decimal);
+    double integer = floor(nb);
+    double decimal;
     int decimal_len = 0;
 
-    if (decimal >= 100)
-        decimal = 99;
+    if (nb < 0)
+        integer = ceil(nb);
+    decimal = round( (nb - integer) * pow(10, nb_decimal) );
     if (decimal < 0)
         decimal = -decimal;
+    if (nb < 0 && nb > -1)
+        my_putchar('-');
     my_put_nbr((int)nb);
     my_putchar('.');
     if (decimal < 1) {
@@ -44,6 +41,5 @@ void my_put_double(double nb, int nb_decimal)
         while (decimal / my_compute_power_rec(10, decimal_len) >= 1)
             decimal_len++;
     }
-    round_nbr(&decimal);
     display_decimal_digits(decimal, &decimal_len, nb_decimal);
 }
