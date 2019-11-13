@@ -28,7 +28,7 @@ int nb_decimal)
 
 void my_put_double(double nb, int nb_decimal)
 {
-    double integer = floor(nb);
+    double integer = ceil(nb);
     double decimal = (float)(nb - (float)integer) * POW(10, nb_decimal);
     int decimal_len = 0;
 
