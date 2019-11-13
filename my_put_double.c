@@ -28,10 +28,12 @@ int nb_decimal)
 
 void my_put_double(double nb, int nb_decimal)
 {
-    int integer = nb;
+    double integer = floor(nb);
     double decimal = (float)(nb - (float)integer) * POW(10, nb_decimal);
     int decimal_len = 0;
 
+    if (decimal >= 100)
+        decimal = 99;
     if (decimal < 0)
         decimal = -decimal;
     my_put_nbr((int)nb);

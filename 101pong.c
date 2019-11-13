@@ -39,7 +39,9 @@ static void display_part_one(vector_t v, vector_t time_n, int n)
 
 static int is_reach_paddle(vector_t *velocity, vector_t *one)
 {
-    if (velocity->z <= 0 && one->z >= 0)
+    if (velocity->z == 0 && one->z == 0)
+        return (1);
+    if (velocity->z < 0 && one->z >= 0)
         return (1);
     if (velocity->x == 0 && velocity->y == 0 && velocity->z == 0) {
         if (one->z == 0)
