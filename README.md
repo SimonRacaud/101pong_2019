@@ -3,7 +3,7 @@ Mathematics : Vector computations. And Breakout game (bonus).
 
 Note: The pong game is in the bonus directory.
 
-# How to launch
+# How to launch (Breakout)
 ```bash
 $> cd 101pong_2019/bonus
 $> make
